@@ -20,5 +20,4 @@ RUN set -ex \
     && dnf clean all                      \
     && echo
 
-ENTRYPOINT ["/bin/bash"]
-CMD ["/bin/bash"]
+ENTRYPOINT ["/usr/bin/bash"]
