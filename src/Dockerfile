@@ -17,11 +17,18 @@ ARG yumList=" \
             "
 
 RUN set -ex \
+    && git clone https://github.com/udhos/update-golang.git /tmp/update-golang \
+    && cd update-golang/                                                       \
+    && ./update-golang.sh                                                      \
+    && rm -rf $(which go)                                                      \
+    && cp -f /usr/local/go/bin/go /usr/bin/go                                  \
     && dnf update     ${yumFlags}            \
     && dnf install    ${yumFlags} ${yumList} \
     && dnf install -y ${urlEpel}             \
     && dnf install -y ${urlTmux}             \
+    && rm -rf /tmp/update-golang             \
     && dnf clean all                         \
+    && go version                            \
     && echo
 
 ENTRYPOINT ["/usr/bin/bash"]
