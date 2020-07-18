@@ -16,9 +16,9 @@ ARG yumList=" \
             sudo \
             "
 
-RUN set -ex \
-    && git clone https://github.com/udhos/update-golang.git /tmp/update-golang \
-    && cd /tmp/update-golang/                                                  \
+RUN set -x \
+    && git clone https://github.com/udhos/update-golang.git                    \
+    && cd  update-golang                                                       \
     && ./update-golang.sh                                                      \
     && rm -rf $(which go)                                                      \
     && cp -f /usr/local/go/bin/go /usr/bin/go                                  \
@@ -26,7 +26,8 @@ RUN set -ex \
     && dnf install    ${yumFlags} ${yumList} \
     && dnf install -y ${urlEpel}             \
     && dnf install -y ${urlTmux}             \
-    && rm -rf /tmp/update-golang             \
+    && cd \
+    && rm -rf update-golang                  \
     && dnf clean all                         \
     && go version                            \
     && echo
