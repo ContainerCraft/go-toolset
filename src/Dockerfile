@@ -18,7 +18,7 @@ ARG yumList=" \
 
 RUN set -ex \
     && git clone https://github.com/udhos/update-golang.git /tmp/update-golang \
-    && cd update-golang/                                                       \
+    && cd /tmp/update-golang/                                                  \
     && ./update-golang.sh                                                      \
     && rm -rf $(which go)                                                      \
     && cp -f /usr/local/go/bin/go /usr/bin/go                                  \
