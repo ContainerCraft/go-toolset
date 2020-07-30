@@ -13,12 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build 
-      run: |
-        docker build . --file ./src/Dockerfile --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/ccio-golang:ubi8
     - name: Login
       run: |
         echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin 
-    - name: Push
+    - name: Build Image red-gotools
       run: |
-        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/ccio-golang:ubi8
+        docker build . --file ./src/Dockerfile \
+          --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools
+          --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest
+    - name: Push ocpredshift/red-gotools
+      run: |
+        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools \
+        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest
