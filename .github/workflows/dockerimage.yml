@@ -19,7 +19,7 @@ jobs:
     - name: Build Image red-gotools
       run: |
         docker build . --file ./src/Dockerfile \
-          --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools
+          --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools \
           --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest
     - name: Push ocpredshift/red-gotools
       run: |
