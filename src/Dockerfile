@@ -3,7 +3,8 @@ LABEL maintainer="ContainerCraft.io"  \
       release="`date +'%Y%m%d%H%M%S'`"
 
 USER root
-ENV HOME=/root 
+ENV HOME=/root \
+    GO111MODULE=on
 WORKDIR /root/dev
 
 COPY src/bashrc $HOME/.bashrc
