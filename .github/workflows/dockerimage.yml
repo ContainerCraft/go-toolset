@@ -23,5 +23,5 @@ jobs:
           --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest
     - name: Push ocpredshift/red-gotools
       run: |
-        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools \
-        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest
+        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools; \
+        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest;
