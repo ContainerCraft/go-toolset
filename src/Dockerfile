@@ -6,7 +6,7 @@ USER root
 ENV HOME=/root
 WORKDIR /root/dev
 
-COPY src/bashrc $HOME/.bashrc
+COPY src/bashrc /root/.bashrc
 
 ARG urlEpel="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
 ARG urlTmux="http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/tmux-2.7-1.el8.x86_64.rpm"
