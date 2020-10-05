@@ -13,15 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Login
+    - name: Login | Docker.io
       run: |
-        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin 
-    - name: Build Image red-gotools
+        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin docker.io
+    - name: Login | Quay.io
       run: |
-        docker build . --file ./src/Dockerfile \
-          --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools \
-          --tag ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest
-    - name: Push ocpredshift/red-gotools
+        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin quay.io
+    - name: Build Image ccio-gotools
       run: |
-        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools; \
-        docker push ${{ secrets.DOCKERHUB_ORGANIZATION  }}/red-gotools:latest;
+        docker build . --file ./Dockerfile \
+          --tag quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools \
+          --tag quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest \
+          --tag docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools \
+          --tag docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest
+    - name: Push containercraft/gotools
+      run: |
+        docker push quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools; \
+        docker push quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest; \
+        docker push docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools; \
+        docker push docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest;
