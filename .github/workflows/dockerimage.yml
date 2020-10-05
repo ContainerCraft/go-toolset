@@ -22,13 +22,9 @@ jobs:
     - name: Build Image ccio-gotools
       run: |
         docker build . --file ./Dockerfile \
-          --tag quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools \
-          --tag quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest \
-          --tag docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools \
-          --tag docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest
+            --tag quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/golang:ubi \
+            --tag docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/golang:ubi
     - name: Push containercraft/gotools
       run: |
-        docker push quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools; \
-        docker push quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest; \
-        docker push docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools; \
-        docker push docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/red-gotools:latest;
+        docker push quay.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/golang:ubi; \
+        docker push docker.io/${{ secrets.DOCKERHUB_ORGANIZATION }}/golang:ubi;
