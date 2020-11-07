@@ -126,6 +126,7 @@ if [ -f ~/.ssh/agent.env ] ; then
     fi
 else
     echo "Starting ssh-agent"
-    eval `ssh-agent | tee ~/.ssh/agent.env`
+    mkdir ~/.ssh -p
+    eval `ssh-agent | tee ~/.ssh/agent.env` 1>&2 2>/dev/null
     ssh-add
 fi
