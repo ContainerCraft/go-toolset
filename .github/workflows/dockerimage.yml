@@ -2,12 +2,12 @@ name: UBI8ImageBuild
 on:
   push:
     branches: 
-      - master
+      - main
   pull_request:
     branches: 
-      - master
+      - main
   schedule:
-    - cron: '0 2 * * 0' # Weekly on Sundays at 03:10
+    - cron: '0 0 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
