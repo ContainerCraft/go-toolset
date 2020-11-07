@@ -1,4 +1,4 @@
-name: DockerHubBuild
+name: UBI8ImageBuild
 on:
   push:
     branches: 
