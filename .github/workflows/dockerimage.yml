@@ -13,12 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Login | Docker.io
+    - name: Docker.io + Quay.io Login
       run: |
-        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin docker.io
-    - name: Login | Quay.io
-      run: |
-        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin quay.io
+        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin quay.io; \
+        echo "${{ secrets.DOCKERHUB_PASSWD }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin docker.io 
     - name: Build Image ccio-gotools
       run: |
         docker build . --file ./Dockerfile \
