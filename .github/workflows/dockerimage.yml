@@ -1,4 +1,4 @@
-name: nginx
+name: golang
 on:
   schedule:
     - cron: '0 1 * * *'
