@@ -48,29 +48,9 @@ jobs:
         context: .
         file: Dockerfile
         platforms: linux/amd64
-        push: false
+        push: true
         tags: |
           quay.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}
           quay.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}:main-${{ github.sha }}
           docker.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}
           docker.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}:main-${{ github.sha }}
-
-    - name: Check images on host
-      run: |
-          set -ex;\
-          docker images;\
-          echo;
-
-    - name: Push Image | quay.io
-      run: |
-          set -ex;\
-          podman push quay.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }};\
-          podman push quay.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}:main-${{ github.sha }};\
-          echo;
-
-    - name: Push Image | docker.io
-      run: |
-          set -ex;\
-          podman push docker.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }};\
-          podman push docker.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}:main-${{ github.sha }};\
-          echo;
