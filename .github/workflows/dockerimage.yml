@@ -55,6 +55,12 @@ jobs:
           docker.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}
           docker.io/${{ secrets.GIT_PROJECT }}/${{ github.workflow }}:main-${{ github.sha }}
 
+    - name: Check images on host
+      run: |
+          set -ex;\
+          docker images;\
+          echo;
+
     - name: Push Image | quay.io
       run: |
           set -ex;\
