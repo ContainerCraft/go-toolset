@@ -1,18 +1,26 @@
 #################################################################################
 # Builder Image
-FROM registry.access.redhat.com/ubi8/ubi as builder
+FROM quay.io/cloudctl/ubi:builder as builder
 
 #################################################################################
 # Build Rootfs
+ENV PATH="/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ADD ./repos/centos/etc /etc/
 RUN set -ex \
+     && dnf install -y git make gpgme-devel libassuan-devel gcc \
      && export goversion="$(curl -s https://golang.org/dl/?mode=json | awk -F'[":go]' '/  "version"/{print $8}' | head -n1)" \
      && curl -L https://golang.org/dl/go${goversion}.linux-amd64.tar.gz | tar -C /usr/local/ -xzvf - \
+     && go version \
+     && git clone https://github.com/containers/skopeo.git /tmp/skopeo \
     && echo
+#    && cd /skopeo \
+#    && make bin/skopeo \
 
 #################################################################################
 # Build Image from Rootfs
-FROM quay.io/cloudctl/ubi:minimal
-COPY --from=builder /usr/local/go /usr/local/go
+#FROM quay.io/cloudctl/ubi:micro
+#ENV PATH="/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#COPY --from=builder /usr/local/go /usr/local/go
 CMD /bin/sh
 
 #################################################################################
