@@ -1,4 +1,4 @@
-name: golang
+name: go-toolset
 on:
   schedule:
     - cron: '0 1 * * *'

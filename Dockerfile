@@ -17,6 +17,7 @@ ARG dnfFlags=" \
 " 
 ARG dnfList=" \
   vi \
+  gcc \
 "
 
 RUN set -x \
