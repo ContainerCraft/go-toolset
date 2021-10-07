@@ -4,38 +4,38 @@ LABEL maintainer="ContainerCraft.io"  \
 
 USER root
 ENV HOME=/root
-WORKDIR /root/dev
+WORKDIR /build
 
 COPY contrib/bashrc /root/.bashrc
 
-ARG urlEpel="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-ARG urlTmux="http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/tmux-2.7-1.el8.x86_64.rpm"
+#ARG urlEpel="https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+#ARG urlTmux="http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/tmux-2.7-1.el8.x86_64.rpm"
 
-ARG yumFlags=" \
+ARG dnfFlags=" \
             -y \
             --disableplugin=subscription-manager \
 " 
-ARG yumList=" \
-            vim  \
+ARG dnfList=" \
+  vi \
 "
 
 RUN set -x \
-    && git clone https://github.com/udhos/update-golang.git /root/dev/update-golang \
-    && cd  /root/dev/update-golang                                             \
-    && ./update-golang.sh                                                      \
     && rm -rf $(which go)                                                      \
-    && cp -f /usr/local/go/bin/go /usr/bin/go                                  \
-    && cd /root/dev                                                            \
+    && git clone https://github.com/udhos/update-golang.git /root/dev/update-golang \
+    && cd /root/dev/update-golang                                              \
+    && ./update-golang.sh                                                      \
+    && /usr/local/go/bin/go version                                            \
+    && ln -f /usr/local/go/bin/go /usr/bin/go                                  \
     && rm -rf /root/dev/update-golang                                          \
     && go version                                                              \
     && echo
 
-RUN set -x \
-    && dnf update     ${yumFlags}            \
-    && dnf install    ${yumFlags} ${yumList} \
-    && dnf install -y ${urlEpel}             \
-    && dnf install -y ${urlTmux}             \
-    && dnf clean all                         \
-    && echo
+#RUN set -x \
+#    && dnf update     ${dnfFlags}            \
+#    && dnf install    ${dnfFlags} ${dnfList} \
+#    && dnf clean all                         \
+#    && echo
+#   && dnf install -y ${urlEpel}             \
+#   && dnf install -y ${urlTmux}             \
 
 ENTRYPOINT ["/usr/bin/bash"]
